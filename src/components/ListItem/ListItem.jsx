@@ -1,3 +1,5 @@
+import "./ListItem.css";
+
 export default function ListItem({ item: { task, completed }, todoList, setTodoList }) {
 
   function handleChange(e) {
@@ -15,8 +17,12 @@ export default function ListItem({ item: { task, completed }, todoList, setTodoL
     ]);
   }
 
+  function handleDelete() {
+    setTodoList((list) => list.filter((i) => i.task !== task));
+  }
+
   return (
-    <li key={task}>
+    <li id={task}>
       <label htmlFor={task}>
         <input
           name={task}
@@ -26,6 +32,13 @@ export default function ListItem({ item: { task, completed }, todoList, setTodoL
         />
         {task}
       </label>
+      <button>Edit</button>
+      <button
+        disabled={!completed}
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
     </li>
   )
 }

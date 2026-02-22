@@ -1,0 +1,11 @@
+li {
+  list-style-type: none;
+  margin-bottom: 0.1em;
+  margin-top: 0.1em;
+}
+
+button {
+  padding: 0.2em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}

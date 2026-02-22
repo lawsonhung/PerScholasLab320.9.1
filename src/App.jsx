@@ -12,7 +12,14 @@ function App() {
       <h1>Create Todo List</h1>
       <TodoForm setTodoList={setTodoList} todoList={todoList} />
       <ul id="todoList">
-        {todoList.map(item => <ListItem item={item} setTodoList={setTodoList} todoList={todoList} />)}
+        {todoList.map(item =>
+          <ListItem
+            key={item.task}
+            item={item}
+            setTodoList={setTodoList}
+            todoList={todoList}
+          />
+        )}
       </ul>
     </>
   )
