@@ -1,6 +1,9 @@
+import { useState } from "react";
+import EditForm from "../EditForm/EditForm";
 import "./ListItem.css";
 
-export default function ListItem({ item: { task, completed }, todoList, setTodoList }) {
+export default function ListItem({ item, todoList, setTodoList }) {
+  const [edit, setEdit] = useState(false);
 
   function handleChange(e) {
     const itemToChange = todoList.find(item => item.task == e.target.name);
@@ -18,27 +21,42 @@ export default function ListItem({ item: { task, completed }, todoList, setTodoL
   }
 
   function handleDelete() {
-    setTodoList((list) => list.filter((i) => i.task !== task));
+    setTodoList((list) => list.filter((i) => i.task !== item.task));
   }
 
   return (
-    <li id={task}>
-      <label htmlFor={task}>
-        <input
-          name={task}
-          type="checkbox"
-          checked={completed}
-          onChange={handleChange}
+    <>
+      {edit ? (
+        <EditForm
+          item={item}
+          setEdit={setEdit}
+          setTodoList={setTodoList}
         />
-        {task}
-      </label>
-      <button>Edit</button>
-      <button
-        disabled={!completed}
-        onClick={handleDelete}
-      >
-        Delete
-      </button>
-    </li>
+      ) : (
+        <li id={item.task}>
+          <label htmlFor={item.task}>
+            <input
+              name={item.task}
+              type="checkbox"
+              checked={item.completed}
+              onChange={handleChange}
+            />
+            {item.task}
+          </label >
+          <button
+            onClick={() => setEdit(true)}
+          >
+            Edit
+          </button>
+          <button
+            disabled={!item.completed}
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        </li >
+      )
+      }
+    </>
   )
 }
